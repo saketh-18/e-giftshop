@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giftos Signup</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/signup.css">
+                
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Firebase Libraries -->
+    <script type="module">
+        // Import Firebase libraries
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.9.3/firebase-auth.js";
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDFvXbIAgDDwHqdde_3969Z69WijPTwBHA",
+            authDomain: "e-giftshop.firebaseapp.com",
+            projectId: "e-giftshop",
+            storageBucket: "e-giftshop.firebasestorage.app",
+            messagingSenderId: "141545911584",
+            appId: "1:141545911584:web:7603b7944b74c06fb9d345",
+            measurementId: "G-9943REHPJH"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Signup function
+        async function handleSignup(event) {
+            event.preventDefault(); // Prevent form submission
+            console.log("Signup function called");
+
+            // Get email and password values
+            const email = document.getElementById("signup-email").value;
+            const password = document.getElementById("signup-password").value;
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                alert("Signup successful! Redirecting to home page...");
+                window.location.href = "index.html"; // Redirect after signup
+            } catch (error) {
+                console.error("Signup error:", error.message);
+                alert(error.message);
+            }
+        }
+
+        // Attach event listener to submit button
+        window.addEventListener("load", () => {
+            document.querySelector("form").addEventListener("submit", handleSignup);
+        });
+    </script>
+
+    <!-- Additional CSS for styling the page -->
+    <style>
+        /* Import Font */
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+        /* Your styles here, as provided earlier */
+    </style>
+</head>
+<body>
+    <section class="container forms">
+        <!-- Signup Form -->
+        <div class="form signup">
+            <div class="form-content">
+                <header>Signup</header>
+                <form>
+                    <div class="field input-field">
+                        <input type="email" placeholder="Email" id="signup-email" class="input" required>
+                    </div>
+
+                    <div class="field input-field">
+                        <input type="password" placeholder="Create password" id="signup-password" class="password" required>
+                        <i class='bx bx-hide eye-icon'></i>
+                    </div>
+
+                    <div class="field button-field">
+                        <button type="submit">Signup</button>
+                    </div>
+                </form>
+
+                <div class="form-link">
+                    <span>Already have an account? <a href="login.html" class="link login-link">Login</a></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for showing/hiding password -->
+    <script>
+        document.querySelectorAll('.eye-icon').forEach(eyeIcon => {
+            eyeIcon.addEventListener('click', () => {
+                const passwordField = eyeIcon.previousElementSibling;
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    eyeIcon.classList.replace('bx-hide', 'bx-show');
+                } else {
+                    passwordField.type = 'password';
+                    eyeIcon.classList.replace('bx-show', 'bx-hide');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

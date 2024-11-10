@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giftos Login</title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/login.css">
+
+    <!-- Boxicons CSS -->
+    <link href='https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Import Firebase Config and Functions -->
+    <script type="module">
+        import { handleLogin } from "./js/firebaseConfig.js";
+        window.handleLogin = handleLogin; // Expose function to global scope
+    </script>
+</head>
+<body>
+    <section class="container forms">
+        <!-- Login Form -->
+        <div class="form login">
+            <div class="form-content">
+                <header>Login</header>
+                <form onsubmit="handleLogin(event)">
+                    <div class="field input-field">
+                        <input type="email" placeholder="Email" id="login-email" class="input" required>
+                    </div>
+
+                    <div class="field input-field">
+                        <input type="password" placeholder="Password" id="login-password" class="password" required>
+                        <i class='bx bx-hide eye-icon'></i>
+                    </div>
+
+                    <div class="form-link">
+                        <a href="#" class="forgot-pass">Forgot password?</a>
+                    </div>
+
+                    <div class="field button-field">
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
+
+                <div class="form-link">
+                    <span>Don't have an account? <a href="sign-up.html" class="link signup-link">Signup</a></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JavaScript for showing/hiding password -->
+    <script>
+        document.querySelectorAll('.eye-icon').forEach(eyeIcon => {
+            eyeIcon.addEventListener('click', () => {
+                const passwordField = eyeIcon.previousElementSibling;
+                if (passwordField.type === 'password') {
+                    passwordField.type = 'text';
+                    eyeIcon.classList.replace('bx-hide', 'bx-show');
+                } else {
+                    passwordField.type = 'password';
+                    eyeIcon.classList.replace('bx-show', 'bx-hide');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
